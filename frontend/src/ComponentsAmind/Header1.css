@@ -1,0 +1,82 @@
+/* Header1.css */
+.header {
+  height: 60px;
+  width: 100%;
+  position: fixed; /* fixed to keep it at the top */
+  top: 0; /* fixed at the top of the page */
+  /* background-image: url("C:/Users/s-le/Desktop/images/sushi.png");  */
+  background-size: cover; /* Ensures the image covers the entire header */
+  background-position: center; /* Centers the image */
+  background-repeat: no-repeat; /* Prevents the image from repeating */
+  background-color: #d2e0ed; /* Fallback color if the image doesn't load */
+  padding: 0px 20px;
+  border-bottom: 0px solid #dee2e6;
+  display: flex;
+  align-items: center;
+  z-index: 999;
+}
+.custom-logout-item {
+  color: red; /* 赤い文字色に設定 */
+}
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #007bff; /* Primary color */
+  display: flex;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+  text-align: center; /* Ensure text is centered */
+  text-decoration: none;
+  position: relative; /* Relative positioning for the underline */
+}
+
+.navbar-brand svg {
+  margin-right: 10px; /* Space between icon and text */
+}
+
+.navbar-brand::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; /* Position the underline below the text */
+  left: 0;
+  width: 0; /* Start with no width */
+  height: 2px; /* Thickness of the underline */
+  background-color: #007bff; /* Same color as the text */
+  transition: width 0.3s ease; /* Smooth transition for the underline */
+}
+
+.navbar-brand:hover::after {
+  width: 100%; /* Expand the underline to full width on hover */
+}
+
+/* Header1.css */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* 左右にコンテンツを分ける */
+  align-items: center; /* 縦方向の中央揃え */
+  width: 100%; /* 親要素全体に広げる */
+}
+
+.ml-auto {
+  margin-left: auto; /* 右に配置 */
+  display: flex; /* Flexboxを確保 */
+  align-items: center; /* 縦方向の中央揃え */
+  justify-content: flex-end; /* コンテンツを右寄せ */
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cart-icon {
+  color: #198754; /* 青色 */
+  font-size: 1.0rem; /* アイコンのサイズを調整 */
+}
+
+/* Header1Styles.css */
+.header1 .nav-dropdown-icon {
+  font-size: 24px; /* Header1用のアイコンサイズ */
+  color: #007bff; /* Header1用のアイコン色 */
+}
