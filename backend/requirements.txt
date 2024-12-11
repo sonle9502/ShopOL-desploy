@@ -33,3 +33,4 @@ numpy==1.24.4
 pytz
 Flask-Login
 pymysql==1.1.1
+contourpy==1.2.1
