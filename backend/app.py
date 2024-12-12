@@ -80,7 +80,7 @@ if flask_sqlalchemy:
 if mySql:
     # RDS MySQL接続文字列
     app.config['SQLALCHEMY_DATABASE_URI'] = (
-        'mysql+pymysql://FlaskDB:Future0308@shopol-database.crqyu4yoi82f.ap-northeast-1.rds.amazonaws.com:3306/ShopOL'
+        'mysql+pymysql://admin:Future0308@shopol-database.crqyu4yoi82f.ap-northeast-1.rds.amazonaws.com:3306/ShopOL'
     )
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # パフォーマンス向上のため無効化
 
