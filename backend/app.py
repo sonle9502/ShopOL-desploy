@@ -72,10 +72,22 @@ if flask_sqlalchemy:
     migrate = Migrate(app, db)
 
 # MySQLデータベースのURIを設定
+#if mySql:
+ #   app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://FlaskDB:Future0308@localhost:3306/tododb'
+ #   # db = MysqlClass.mysql_db
+ #   db.init_app(app)
+ #   migrate = Migrate(app, db)
 if mySql:
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://FlaskDB:Future0308@localhost:3306/tododb'
-    # db = MysqlClass.mysql_db
+    # RDS MySQL接続文字列
+    app.config['SQLALCHEMY_DATABASE_URI'] = (
+        'mysql+pymysql://FlaskDB:Future0308@shopol-database.crqyu4yoi82f.ap-northeast-1.rds.amazonaws.com:3306/ShopOL'
+    )
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # パフォーマンス向上のため無効化
+
+    # dbを初期化
     db.init_app(app)
+    
+    # マイグレーションツールの初期化
     migrate = Migrate(app, db)
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
