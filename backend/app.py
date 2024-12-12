@@ -95,11 +95,11 @@ else:
     app.config.from_object(ProductionConfig)
 
 # モデルのロード
-try:
-    model = tf.keras.models.load_model('C:/Users/s-le/Desktop/study-private/Python/Online-Store-Flask/ShopOL-desploy/backend/modelsAI/editmodel.h5')
-    print("Model loaded successfully!")
-except Exception as e:
-    print(f"Error loading model: {e}")
+#try:
+ #   model = tf.keras.models.load_model('C:/Users/s-le/Desktop/study-private/Python/Online-Store-Flask/ShopOL-desploy/backend/modelsAI/editmodel.h5')
+  #  print("Model loaded successfully!")
+#except Exception as e:
+ #   print(f"Error loading model: {e}")
 
 # getcsrftoken
 @app.route('/api/get-csrf-token', methods=['GET'])
