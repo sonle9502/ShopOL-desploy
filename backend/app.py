@@ -14,7 +14,7 @@ from forms import CommentForm
 from flask_wtf.csrf import CSRFProtect, generate_csrf ,CSRFError
 from flask_cors import CORS
 # import openai
-import tensorflow as tf
+#import tensorflow as tf
 # import torch
 import librosa
 # import cv2
