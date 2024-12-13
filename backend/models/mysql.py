@@ -1,10 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
-from flask import current_app
 from .sqlwrite import GenStringSQL
-import MySQLdb
+import pymysql # PyMySQLをインポート
 import json
-from MySQLdb.cursors import DictCursor  # Import DictCursor for dictionary-style results
-from datetime import datetime
 
 class MysqlClass:
     # SQLAlchemyのインスタンス
@@ -12,8 +9,8 @@ class MysqlClass:
 
     @classmethod
     def connect_db(cls):
-        # SQLAlchemyから接続情報を抽出する（例: `mysql+mysqldb://`を使う）
-        return MySQLdb.connect(
+        # SQLAlchemyから接続情報を抽出する（例: `mysql+pymysql://`を使う）
+        return pymysql.connect(
             host="localhost",
             user="FlaskDB",
             password="Future0308",
@@ -34,7 +31,7 @@ class MysqlClass:
                 cursor.execute(sql, (quantity_title, task_id,))  # Note the comma to create a tuple
                 connection.commit()
                 return True  # Return None if no address is found
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # Rollback the transaction on error
             return None
@@ -63,7 +60,7 @@ class MysqlClass:
                 # Fetch results
                 result = cursor.fetchall()  # Use fetchall() to retrieve all rows
                 return result
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # トランザクションのロールバック
             return None
@@ -83,7 +80,7 @@ class MysqlClass:
                 cursor.execute(sql, (address, paymentMethod,userId,))  # Note the comma to create a tuple
                 connection.commit()
                 return True  # Return None if no address is found
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # Rollback the transaction on error
             return None
@@ -103,7 +100,7 @@ class MysqlClass:
                 cursor.execute(sql, (quantity,cartItemId,))  # Note the comma to create a tuple
                 connection.commit()
                 return True  # Return None if no address is found
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # Rollback the transaction on error
             return None
@@ -124,7 +121,7 @@ class MysqlClass:
                 cursor.execute(sql, (new_status,userId,order_item_id,))  # Note the comma to create a tuple
                 connection.commit()
                 return True  # Return None if no address is found
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # Rollback the transaction on error
             return None
@@ -171,7 +168,7 @@ class MysqlClass:
                 # Fetch results
                 result = cursor.fetchall()
                 return result  # Return None if no address is found
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # Rollback the transaction on error
             return None
@@ -190,7 +187,7 @@ class MysqlClass:
                 cursor.execute(sql, (address,user_id,))  # Note the comma to create a tuple
                 connection.commit()
                 return True  # Return None if no address is found
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # Rollback the transaction on error
             return None
@@ -218,7 +215,7 @@ class MysqlClass:
                 result = cursor.fetchone()  # Use fetchone() to retrieve a single row
                 return result
 
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # Rollback the transaction on error
             return None
@@ -257,7 +254,7 @@ class MysqlClass:
                 # Fetch results
                 result = cursor.fetchall()  # Use fetchall() to retrieve all rows
                 return result
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # トランザクションのロールバック
             return None
@@ -274,7 +271,7 @@ class MysqlClass:
                 cursor.execute(sql, (user_id, total_amount, tracking_number))
                 connection.commit()
                 return cursor.lastrowid  # 新しい注文のIDを返す
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # トランザクションのロールバック
             return None
@@ -308,7 +305,7 @@ class MysqlClass:
                 cursor.execute(update_sql, (user_id,))
                 connection.commit()
                 return True
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return False
@@ -332,7 +329,7 @@ class MysqlClass:
                 cursor.execute(sql, (order_id, user_id))
                 connection.commit()
                 return True
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return False
@@ -365,7 +362,7 @@ class MysqlClass:
                 result = cursor.fetchall()  # Use fetchall() to retrieve all rows
                 total_amount = result[0][0]
                 return total_amount
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # トランザクションのロールバック
             return None
@@ -381,7 +378,7 @@ class MysqlClass:
                 cursor.execute(sql, (itemId,))
                 connection.commit()
                 return cursor.rowcount  # 削除された行数を返す
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # トランザクションのロールバック
             return None
@@ -421,7 +418,7 @@ class MysqlClass:
                 # Fetch results
                 result = cursor.fetchall()  # Use fetchall() to retrieve all rows
                 return result
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # トランザクションのロールバック
             return None
@@ -464,7 +461,7 @@ class MysqlClass:
 
                 return cart_id  # カートのIDを返す
 
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return None
@@ -481,7 +478,7 @@ class MysqlClass:
                 cursor.execute(sql, (filename, todo_id, image_data))
                 connection.commit()
                 return cursor.lastrowid
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # トランザクションのロールバック
             return None
@@ -501,7 +498,7 @@ class MysqlClass:
                 cursor.execute(sql, (new_price, task_id))
                 connection.commit()
                 return cursor.lastrowid
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()  # トランザクションのロールバック
             return None
@@ -512,7 +509,7 @@ class MysqlClass:
     def search(cls, query):
         connection = cls.connect_db()
         try:
-            with connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
+            with connection.cursor(pymysql.cursors.DictCursor) as cursor:
                 # 検索クエリの準備
                 search_pattern = f"%{query}%"
                 select_sql = """
@@ -547,7 +544,7 @@ GROUP BY
                 # フィールドの形式を修正
                 results = cls.delete_multi(results)
                 return results
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return None
@@ -569,7 +566,7 @@ GROUP BY
                 # Commit the transaction to save the new comment
                 connection.commit()
                 return 200
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return None
@@ -591,7 +588,7 @@ GROUP BY
                 # Commit the transaction to save the new comment
                 connection.commit()
                 return 200
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return None
@@ -613,7 +610,7 @@ GROUP BY
                 # Commit the transaction to save the new comment
                 connection.commit()
                 return 200
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return None
@@ -635,7 +632,7 @@ GROUP BY
                 # Commit the transaction to save the new comment
                 connection.commit()
                 return 200
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return None
@@ -661,7 +658,7 @@ GROUP BY
                 # Commit the transaction to save the changes
                 connection.commit()
                 return 200
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return None
@@ -672,12 +669,12 @@ GROUP BY
     def get_image(cls, image_id):
         connection = cls.connect_db()
         try:
-            with connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
+            with connection.cursor(pymysql.cursors.DictCursor) as cursor:
                 sql = "SELECT * FROM image WHERE id = %s"  # テーブル名が正しいか確認
                 cursor.execute(sql, (image_id,))
                 result = cursor.fetchone()
                 return result
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             return None
         except Exception as e:  # 一般的な例外もキャッチ
@@ -699,7 +696,7 @@ GROUP BY
                     return False  # No row deleted, task not found
             connection.commit()
             return True  # Task successfully deleted
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return False  # Error occurred during deletion
@@ -710,7 +707,7 @@ GROUP BY
     def get_all_data(cls):
         connection = cls.connect_db()
         try:
-            with connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
+            with connection.cursor(pymysql.cursors.DictCursor) as cursor:
                 sql = GenStringSQL.sqlstring("all_data")
                 cursor.execute(sql)
                 results = cursor.fetchall()
@@ -757,7 +754,7 @@ GROUP BY
 
 
                 return results
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             return None
         finally:
@@ -779,7 +776,7 @@ GROUP BY
                 connection.commit()
                 # Return the ID of the newly inserted task
                 return cursor.lastrowid
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             connection.rollback()
             return None
@@ -790,7 +787,7 @@ GROUP BY
     def get_task_detail(cls, id):
         connection = cls.connect_db()
         try:
-            with connection.cursor(MySQLdb.cursors.DictCursor) as cursor:
+            with connection.cursor(pymysql.cursors.DictCursor) as cursor:
                 sql = GenStringSQL.sqlstring("only_task")
                 cursor.execute(sql,(id,))
                 results = cursor.fetchall()
@@ -803,7 +800,7 @@ GROUP BY
                     record['comments'] = json.loads(record['comments']) if record['comments'] else []
                 
                 return results
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             print(f"Error: {e}")
             return None
         finally:
@@ -817,7 +814,7 @@ GROUP BY
                 sql = "INSERT INTO User (name, email) VALUES (%s, %s)"
                 cursor.execute(sql, (name, email))
                 connection.commit()
-        except MySQLdb.MySQLError as e:
+        except pymysql.MySQLError as e:
             # エラー処理
             print(f"Error: {e}")
             connection.rollback()
