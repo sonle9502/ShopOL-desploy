@@ -1,4 +1,4 @@
-import mysql.connector
+import pymysql # PyMySQLをインポート
 from werkzeug.security import generate_password_hash, check_password_hash
 
 class User:
@@ -10,12 +10,13 @@ class User:
 
     @staticmethod
     def connect_db():
-        return mysql.connector.connect(
+        return pymysql.connect(
             host="localhost",
             user="FlaskDB",
             password="Future0308",
             database="tododb",
-            charset='utf8mb4'
+            charset='utf8mb4',
+            cursorclass=pymysql.cursors.DictCursor  # Set the cursor class to DictCursor
         )
 
     @staticmethod
@@ -24,14 +25,30 @@ class User:
 
     @staticmethod
     def get(email):
-        connection = User.get_db_connection()
-        cursor = connection.cursor(dictionary=True)
-        cursor.execute('SELECT id, email, password_hash ,role FROM users WHERE email = %s', (email,))
-        user = cursor.fetchone()
-        connection.close()
-        if user:
-            return User(user['id'], user['email'], user['password_hash'], user['role'])
-        return None
+        try:
+            # Establish connection and create cursor
+            connection = User.get_db_connection()
+            cursor = connection.cursor()
+
+            # Execute the SQL query
+            cursor.execute('SELECT id, email, password_hash, role FROM users WHERE email = %s', (email,))
+
+            # Fetch one user record
+            user = cursor.fetchone()
+
+            # Debugging: Print the fetched user
+            print("Fetched user:", user)
+
+            # Close connection and cursor
+            cursor.close()
+            connection.close()
+
+            if user:
+                return User(user['id'], user['email'], user['password_hash'], user['role'])
+            return None
+        except Exception as e:
+            print("Error occurred:", e)
+            return None
 
     @staticmethod
     def create_user(email, password):
