@@ -11,10 +11,10 @@ class User:
     @staticmethod
     def connect_db():
         return pymysql.connect(
-            host="localhost",
-            user="FlaskDB",
+            host="shopol-database.crqyu4yoi82f.ap-northeast-1.rds.amazonaws.com",
+            user="admin",
             password="Future0308",
-            database="tododb",
+            database="ShopOL",
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor  # Set the cursor class to DictCursor
         )
