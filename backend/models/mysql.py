@@ -2,20 +2,33 @@ from flask_sqlalchemy import SQLAlchemy
 from .sqlwrite import GenStringSQL
 import pymysql # PyMySQLをインポート
 import json
+import distro  # Import the distro library
 
 class MysqlClass:
     # SQLAlchemyのインスタンス
     mysql_db = SQLAlchemy()
 
+    # @classmethod
+    # def connect_db(cls):
+    #     # SQLAlchemyから接続情報を抽出する（例: `mysql+pymysql://`を使う）        
+    #     return pymysql.connect(
+    #         host="localhost",
+    #         user="FlaskDB",
+    #         password="Future0308",
+    #         db="tododb",
+    #         charset='utf8mb4'
+    #     )
+    
     @classmethod
     def connect_db(cls):
-        # SQLAlchemyから接続情報を抽出する（例: `mysql+pymysql://`を使う）
+        # SQLAlchemyから接続情報を抽出する（例: `mysql+pymysql://`を使う）        
         return pymysql.connect(
-            host="localhost",
-            user="FlaskDB",
+            host="shopol-database.crqyu4yoi82f.ap-northeast-1.rds.amazonaws.com",
+            user="admin",
             password="Future0308",
-            db="tododb",
-            charset='utf8mb4'
+            database="ShopOL",
+            charset='utf8mb4',
+            cursorclass=pymysql.cursors.DictCursor  # Set the cursor class to DictCursor
         )
     
     @classmethod
